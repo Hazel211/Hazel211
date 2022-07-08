@@ -1,0 +1,34 @@
+
+local clicking = false
+    
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("SW-Hub by Hazel! ;3", "Sentinel")
+local Tab = Window:NewTab("Player")
+local Section = Tab:NewSection("Player")
+local MainSec = Tab:NewSection("Main")
+local MiscSec = Tab:NewSection("Miscanellous")
+  
+MainSec:NewKeybind("Auto Click", "Auto clicks for you by running a remote.", Enum.KeyCode.F1, function()
+    local Event = game:GetService("ReplicatedStorage").Remotes.Click
+    clicking = true
+    while clicking == true do 
+          wait(0.001)
+          Event:InvokeServer()      
+        end
+        if clicking == true then
+            clicking = false
+          end
+        end)
+
+  
+Section:NewSlider("WalkSpeed", "Changes your walk speed.", 250, 16, function(s)
+        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
+    
+Section:NewSlider("Jump Power", "Changes your jump power.", 150, 50, function(s)
+        game.Players.LocalPlayer.Character.Humanoid.JumpPower = s
+end)
+
+MiscSec:NewKeybind("Gui Bind", "Binds the GUI to open/close.", Enum.KeyCode.F3, function()
+	Library:ToggleUI()
+end)
